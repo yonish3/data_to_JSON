@@ -3,7 +3,9 @@ const fs = require('fs');
 
 const dataCSV = new csvAndArray.csvFileAsArray("./data_from_google.csv");
 let dataArray = null
-let jsonArray = []
+let jsonArrayTrain = []
+let jsonArrayTest = []
+let totalLables = [0,0]
 
 const convert = async function (dataCSV){
 
@@ -27,15 +29,34 @@ const convert = async function (dataCSV){
                 console.log('Read!');
             });
 
-            jsonArray.push({
-                "text":fileText.replace(/\s+/g,' ').trim(),
-                "label": dataArray[i][z]
-            })
+            if (i < dataArray.length*0.5) {
+                jsonArrayTrain.push({
+                    "text":fileText.replace(/\s+/g,' ').trim(),
+                    "label": dataArray[i][z]
+                })
+                totalLables[0]++
+            }else{
+                jsonArrayTest.push({
+                    "text":fileText.replace(/\s+/g,' ').trim(),
+                    "label": dataArray[i][z]
+                })
+                totalLables[1]++
+
+            }
         }        
     }
 
-    var json = JSON.stringify(jsonArray);
-    fs.writeFile('training_data.json', json, 'utf8', function (err) {
+    console.log('totalLables:',totalLables[0], totalLables[1])
+
+    var jsonTrain = JSON.stringify(jsonArrayTrain);
+    var jsonTest = JSON.stringify(jsonArrayTest);
+
+    fs.writeFile('training_data.json', jsonTrain, 'utf8', function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+
+    fs.writeFile('testing_data.json', jsonTest, 'utf8', function (err) {
         if (err) throw err;
         console.log('Saved!');
     });
