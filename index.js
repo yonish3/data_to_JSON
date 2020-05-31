@@ -19,12 +19,18 @@ const convert = async function (dataCSV){
     }
    
     for (let i = 0; i < dataArray.length; i++) {
-        for (let z = 0; z < dataArray[i].length-1; z++) {
+        for (let z = 1; z < dataArray[i].length; z++) {
+
+            let fileName = dataArray[i][0].substr(99)
+            let fileText = fs.readFileSync(`./${fileName}`, {encoding:'utf8', flag:'r'}, function (err) {
+                if (err) throw err;
+                console.log('Read!');
+            });
+
             jsonArray.push({
-                "text":dataArray[i][0],
+                "text":fileText.replace(/\s+/g,' ').trim(),
                 "label": dataArray[i][z]
             })
-            
         }        
     }
 
