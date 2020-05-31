@@ -1,0 +1,14 @@
+Manufacturer: Magical Shoes 
+Model name: MAGICAL BAG GRAY 
+
+Short description:
+The Magical Bag is made from high quality fabric (codura).
+It is a fabric highly resistant to weather conditions and thanks to its internal
+structure it is also very light.
+Additionally Magical Bag is remarkably durable and watertight. 
+
+Long description:
+The Magical Bag is made from high quality fabric (codura).
+It is a fabric highly resistant to weather conditions and thanks to its internal
+structure it is also very light.
+Additionally Magical Bag is remarkably durable and watertight.

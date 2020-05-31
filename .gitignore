@@ -1,0 +1,4 @@
+node_modules
+data_from_google.csv
+google_to_json.json
+training_data.json
