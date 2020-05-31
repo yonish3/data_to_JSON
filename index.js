@@ -1,12 +1,13 @@
 const csvAndArray = require("csv-and-array");
+const fs = require('fs');
 
 const dataCSV = new csvAndArray.csvFileAsArray("./data_from_google.csv");
 let dataArray = null
+let jsonArray = []
 
 const convert = async function (dataCSV){
 
     dataArray = await dataCSV.getValues();
-    console.log('1111111111111111111111')
 
     for (let i = 0; i < dataArray.length; i++) {
         for (let z = 0; z < dataArray[i].length; z++) {
@@ -16,12 +17,22 @@ const convert = async function (dataCSV){
             }
         }
     }
-    
+   
+    for (let i = 0; i < dataArray.length; i++) {
+        for (let z = 0; z < dataArray[i].length-1; z++) {
+            jsonArray.push({
+                "text":dataArray[i][0],
+                "label": dataArray[i][z]
+            })
+            
+        }        
+    }
 
-    console.log('22222222222222222')
-    console.log(dataArray)
-
-    return dataArray
+    var json = JSON.stringify(jsonArray);
+    fs.writeFile('training_data.json', json, 'utf8', function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
 }
 
 dataArray = convert(dataCSV)
